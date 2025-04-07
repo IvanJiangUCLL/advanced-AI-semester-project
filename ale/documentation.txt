@@ -1,0 +1,20 @@
+Download ale-py
+download gymnasium
+set up tetris environment
+define controls
+train model
+evaluate model
+
+
+autorom --accept-license (setting up tetris environment)
+
+extension: new blocks?, more space? idk
+
+
+first run: only goes to the right side of the field
+second run: added rotate, left, down
+third run: changed reward system -> actions done
+fourth run: train model on previous model
+fifth run: train model on different reward system -> lines completed
+
+

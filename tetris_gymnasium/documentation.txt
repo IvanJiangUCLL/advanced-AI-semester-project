@@ -1,0 +1,45 @@
+pip install tetris-gymnasium
+
+introduce things step by step (editing can be done in venv\Lib\site-packages\tetris_gymnasium\envs\tetris.py)
+change reward system if you want to (venv\Lib\site-packages\tetris_gymnasium\mappings\rewards.py)
+
+first introduce 2x2 block and only right left movement in 4 width 20 height
+introduce other blocks and rotations (remove reward of left/right movement) 
+
+reward system: clearing lines, surviving as long as possible
+
+naming convention:
+CONT: continuation on a previous trained model
+XxX: height x width area
+LR: left right movement
+BAD_xxxxx_x: bad choice, reason, run (see run number for more info)
+O: O tetronimo
+I: I tetronimo
+T: T tetronimo
+S: S tetronimo
+Z: Z tetronimo
+J: J tetronimo
+L: L tetronimo
+
+
+
+trained_models:
+not random seed
+1. left and right movement only 2x2 block (tetronimo) in 4x20 area (10000 timesteps) good test, first placement is weird but it works fine
+
+2. left and right movement only 2x2 block (tetronimo) in 10x20 area (10000 timesteps), fills lines sometimes stacks tetronimoes often. (total reward: 37.199999999999974)
+3. continuation 2. (100 000 timesteps) doesn't work at all, stacks tetronimoes, irregular (total reward: -1.3)
+4. continuation 2. (100 000 timesteps) changed exploration rate (0.1), even worse (total reward: -2.3000000000000007)
+5. continuation 4. (1 000 000 timesteps) changed learning rate to change over time, still bad 
+6. continuation 5. (1 000 000 timesteps) idem 
+
+7. changed reward for clearing line to 100, others to either -1 or 1, if the model moves while already at the edge -> -1, changed exploration rate (0.4) and train freq changed (1->4)(n_updates) continuation on 2. (100000 timesteps)
+    -> dumb decision, model doesn't touch the border anymore -> can't clear lines
+8. removed dumb rule (100 000 timesteps)(total reward: 280) -> still hasn't cleared any lines yet
+9. continuation 8.: i think the model just requires more training? (500 000 timesteps) (total reward: 273)
+10. added reward to game over -> -100, new training with all blocks and all actions, not good
+11. continuation 10. (1 000 000 timesteps)
+
+
+
+potential extension -> add more tetronimoes/play with area/
