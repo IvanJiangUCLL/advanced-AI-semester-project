@@ -8,7 +8,7 @@ introduce other blocks and rotations (remove reward of left/right movement)
 
 reward system: clearing lines, surviving as long as possible
 
-naming convention:
+naming convention (only for single runs):
 CONT: continuation on a previous trained model
 XxX: height x width area
 LR: left right movement
@@ -32,6 +32,7 @@ not random seed
 4. continuation 2. (100 000 timesteps) changed exploration rate (0.1), even worse (total reward: -2.3000000000000007)
 5. continuation 4. (1 000 000 timesteps) changed learning rate to change over time, still bad 
 6. continuation 5. (1 000 000 timesteps) idem 
+can't add more tetronimoes because observation size doesn't match
 
 7. changed reward for clearing line to 100, others to either -1 or 1, if the model moves while already at the edge -> -1, changed exploration rate (0.4) and train freq changed (1->4)(n_updates) continuation on 2. (100000 timesteps)
     -> dumb decision, model doesn't touch the border anymore -> can't clear lines
@@ -40,6 +41,11 @@ not random seed
 10. added reward to game over -> -100, new training with all blocks and all actions, not good
 11. continuation 10. (1 000 000 timesteps)
 
+12. multiple runs that implement things by stages, good for observation area, still not a good model, just stacks blocks 
+13. continuation 12. added a rule that penalizes the model if it creates holes -> rule was already added 
 
+14. continuation 13. trained for 25+ hours, still no progress
 
-potential extension -> add more tetronimoes/play with area/
+similar problem to a guy that trained an AI on tetris with genetic algorithm -> lines cleared, holes, bumpiness, aggragate heigth (https://www.youtube.com/watch?v=LGNiWRhuIoA)
+
+potential extension -> add more tetronimoes/play with area/make AI do tetris (clear 4 rows at once)(kinda implemented (reward for clearing multiple rows at once))

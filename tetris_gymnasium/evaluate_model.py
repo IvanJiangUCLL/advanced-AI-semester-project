@@ -4,6 +4,7 @@ from stable_baselines3 import DQN
 import gymnasium as gym
 from gymnasium.envs.registration import register
 import random
+from train_model import FixedObservationWrapper
 
 if "tetris_gymnasium/Tetris" in gym.envs.registry.keys():
     if "tetris_gymnasium/Tetris" in gym.envs.registry:
@@ -25,6 +26,8 @@ def evaluate_tetris_model(model_path, num_episodes=5):
         time_limit (int): Maximum time (in seconds) to run each episode.
     """
     env = gym.make("tetris_gymnasium/Tetris", render_mode="human")
+    env = FixedObservationWrapper(env, target_board_shape=(
+        20, 10), target_holder_shape=(4, 4), target_queue_shape=(4, 16))
 
     model = DQN.load(model_path)
     print(f"Loaded model from {model_path}")
